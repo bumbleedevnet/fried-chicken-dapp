@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Solana Kit Starter",
+  title: "Waroenk Mandala",
   description:
-    "Wallet connection and on-chain actions with @solana/kit, the kit plugin client, and @solana/react",
+    "A decentralized fried chicken delivery platform powered by Solana blockchain",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
