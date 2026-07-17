@@ -1,9 +1,27 @@
+import type { CartItem } from "../cart/cart-types";
+
 type MenuCardProps = {
   name: string;
   price: number;
+  addToCart: (item: CartItem) => void;
 };
 
-export function MenuCard({ name, price }: MenuCardProps) {
+export function MenuCard({
+  name,
+  price,
+  addToCart,
+}: MenuCardProps) {
+  const handleOrder = () => {
+    const item: CartItem = {
+      id: crypto.randomUUID(),
+      name,
+      price,
+      quantity: 1,
+    };
+
+    addToCart(item);
+  };
+
   return (
     <div className="rounded-xl border border-border-low bg-card p-4 shadow-sm">
       <div className="mb-4 flex h-40 items-center justify-center rounded-lg bg-cream">
@@ -21,7 +39,10 @@ export function MenuCard({ name, price }: MenuCardProps) {
           Rp {price.toLocaleString("id-ID")}
         </span>
 
-        <button className="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90">
+        <button
+          onClick={handleOrder}
+          className="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+        >
           Order
         </button>
       </div>

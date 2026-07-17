@@ -1,4 +1,9 @@
+import type { CartItem } from "../cart/cart-types";
 import { MenuCard } from "./menu-card";
+
+type FeaturedMenuProps = {
+  addToCart: (item: CartItem) => void;
+};
 
 const menus = [
   {
@@ -18,7 +23,9 @@ const menus = [
   },
 ];
 
-export function FeaturedMenu() {
+export function FeaturedMenu({
+  addToCart,
+}: FeaturedMenuProps) {
   return (
     <section className="mt-20">
       <div className="text-center">
@@ -41,6 +48,7 @@ export function FeaturedMenu() {
             key={menu.id}
             name={menu.name}
             price={menu.price}
+            addToCart={addToCart}
           />
         ))}
       </div>
