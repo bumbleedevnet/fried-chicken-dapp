@@ -13,7 +13,7 @@ export function MenuCard({
 }: MenuCardProps) {
   const handleOrder = () => {
     const item: CartItem = {
-      id: crypto.randomUUID(),
+      id: name.toLowerCase().replace(/\s+/g, "-"),
       name,
       price,
       quantity: 1,
