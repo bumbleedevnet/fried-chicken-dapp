@@ -18,6 +18,13 @@ export function WalletButton() {
   const wallets = useWallets();
   const status = useWalletStatus();
   const connected = useConnectedWallet();
+
+  // ===== DEBUG =====
+  console.log("Wallets:", wallets);
+  console.log("Status:", status);
+  console.log("Connected:", connected);
+  // =================
+
   const { dispatch: connect, error } = useConnect();
   const { dispatch: disconnect } = useDisconnect();
 
@@ -70,6 +77,7 @@ export function WalletButton() {
             <p className="mb-2 text-xs font-medium text-muted">
               Choose a wallet
             </p>
+
             {wallets.length === 0 ? (
               <p className="text-xs text-muted">
                 No wallets detected. Install a Solana wallet extension.
@@ -84,10 +92,9 @@ export function WalletButton() {
                       close();
                     }}
                     disabled={status === "connecting"}
-                    className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition hover:bg-cream disabled:opacity-50 disabled:pointer-events-none"
+                    className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition hover:bg-cream disabled:pointer-events-none disabled:opacity-50"
                   >
                     {wallet.icon && (
-                      // eslint-disable-next-line @next/next/no-img-element -- wallet-standard icons are data URIs
                       <img
                         src={wallet.icon}
                         alt=""
@@ -99,9 +106,11 @@ export function WalletButton() {
                 ))}
               </div>
             )}
+
             {status === "connecting" && (
               <p className="mt-2 text-xs text-muted">Connecting...</p>
             )}
+
             {error != null && (
               <p className="mt-2 text-xs text-destructive">
                 {error instanceof Error ? error.message : String(error)}
@@ -146,6 +155,7 @@ export function WalletButton() {
             >
               {copied ? "Copied!" : "Copy address"}
             </button>
+
             <a
               href={getExplorerUrl(`/address/${walletAddress}`)}
               target="_blank"

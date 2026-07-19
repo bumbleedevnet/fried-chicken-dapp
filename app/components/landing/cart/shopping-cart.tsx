@@ -6,6 +6,7 @@ type ShoppingCartProps = {
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
   clearCart: () => void;
+  onCheckout: () => void;
 };
 
 export function ShoppingCart({
@@ -13,6 +14,7 @@ export function ShoppingCart({
   increaseQuantity,
   decreaseQuantity,
   clearCart,
+  onCheckout,
 }: ShoppingCartProps) {
   return (
     <section className="mt-20 rounded-xl border p-6">
@@ -24,7 +26,7 @@ export function ShoppingCart({
         {cart.length > 0 && (
           <button
             onClick={clearCart}
-            className="rounded border border-red-500 px-3 py-2 text-sm text-red-500 hover:bg-red-500 hover:text-white"
+            className="rounded border border-red-500 px-3 py-2 text-sm text-red-500 transition hover:bg-red-500 hover:text-white"
           >
             🗑 Clear Cart
           </button>
@@ -51,7 +53,7 @@ export function ShoppingCart({
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       onClick={() => decreaseQuantity(item.id)}
-                      className="rounded border px-2 py-1 text-sm hover:bg-gray-100"
+                      className="rounded border px-2 py-1 text-sm transition hover:bg-gray-100"
                     >
                       -
                     </button>
@@ -62,7 +64,7 @@ export function ShoppingCart({
 
                     <button
                       onClick={() => increaseQuantity(item.id)}
-                      className="rounded border px-2 py-1 text-sm hover:bg-gray-100"
+                      className="rounded border px-2 py-1 text-sm transition hover:bg-gray-100"
                     >
                       +
                     </button>
@@ -79,6 +81,7 @@ export function ShoppingCart({
           <CartSummary cart={cart} />
 
           <button
+            onClick={onCheckout}
             className="mt-6 w-full rounded-lg bg-black px-4 py-3 font-semibold text-white transition hover:opacity-90"
           >
             Checkout
