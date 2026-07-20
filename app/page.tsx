@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
+import { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
 
 import { ActionsPanel } from "./components/actions/actions-panel";
 import type { CartItem } from "./components/landing/cart/cart-types";
@@ -10,6 +12,7 @@ import { FeaturedMenu } from "./components/landing/menu/featured-menu";
 
 export default function Home() {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const connected = useConnectedWallet();
 
   const addToCart = (item: CartItem) => {
     setCart((currentCart) => {
@@ -72,6 +75,22 @@ export default function Home() {
     setCart([]);
   };
 
+  const handleCheckout = () => {
+    if (!connected) {
+      toast.error("Please connect your wallet first.");
+      return;
+    }
+
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    toast.success(
+      `Preparing payment for Rp ${total.toLocaleString("id-ID")}`
+    );
+  };
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
       <HeroSection />
@@ -83,6 +102,7 @@ export default function Home() {
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
         clearCart={clearCart}
+        onCheckout={handleCheckout}
       />
 
       <ActionsPanel />
