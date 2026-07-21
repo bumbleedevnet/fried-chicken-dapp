@@ -96,7 +96,12 @@ export default function Home() {
       0
     );
 
+    const destination = address(
+      "DqCEv2SnTEwnvrYnkW58aYoDNe4qq1JhGPArx8dybckq"
+    );
+
     console.log("Signer:", signer);
+    console.log("Destination:", destination);
 
     toast.success(
       `Preparing payment for Rp ${total.toLocaleString("id-ID")}`
