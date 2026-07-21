@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { address } from "@solana/kit";
 import { toast } from "sonner";
 import { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
+
+import { lamportsFromSol } from "./lib/lamports";
+import { useAppClient } from "./lib/client-provider";
+import { useSend } from "./lib/hooks/use-send";
 
 import { ActionsPanel } from "./components/actions/actions-panel";
 import type { CartItem } from "./components/landing/cart/cart-types";
@@ -13,6 +18,9 @@ import { FeaturedMenu } from "./components/landing/menu/featured-menu";
 export default function Home() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const connected = useConnectedWallet();
+
+  const client = useAppClient();
+  const { run, isSending } = useSend();
 
   const addToCart = (item: CartItem) => {
     setCart((currentCart) => {
@@ -76,15 +84,19 @@ export default function Home() {
   };
 
   const handleCheckout = () => {
-    if (!connected) {
+    if (!connected?.signer) {
       toast.error("Please connect your wallet first.");
       return;
     }
+
+    const signer = connected.signer;
 
     const total = cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
+
+    console.log("Signer:", signer);
 
     toast.success(
       `Preparing payment for Rp ${total.toLocaleString("id-ID")}`
