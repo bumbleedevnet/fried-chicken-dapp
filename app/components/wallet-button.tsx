@@ -19,12 +19,6 @@ export function WalletButton() {
   const status = useWalletStatus();
   const connected = useConnectedWallet();
 
-  // ===== DEBUG =====
-  console.log("Wallets:", wallets);
-  console.log("Status:", status);
-  console.log("Connected:", connected);
-  // =================
-
   const { dispatch: connect, error } = useConnect();
   const { dispatch: disconnect } = useDisconnect();
 
@@ -47,18 +41,22 @@ export function WalletButton() {
         close();
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleCopy = async () => {
     if (!walletAddress) return;
+
     try {
       await navigator.clipboard.writeText(walletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard API unavailable (insecure origin) or permission denied.
+      // Clipboard API unavailable.
     }
   };
 
@@ -67,7 +65,7 @@ export function WalletButton() {
       <div className="relative" ref={ref}>
         <button
           onClick={() => (isOpen ? close() : open())}
-          className="cursor-pointer rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground shadow-xs transition hover:bg-primary/90"
+          className="cursor-pointer rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-xs transition hover:bg-primary/90"
         >
           Connect Wallet
         </button>
@@ -101,6 +99,7 @@ export function WalletButton() {
                         className="h-5 w-5 rounded"
                       />
                     )}
+
                     <span>{wallet.name}</span>
                   </button>
                 ))}
@@ -108,7 +107,9 @@ export function WalletButton() {
             )}
 
             {status === "connecting" && (
-              <p className="mt-2 text-xs text-muted">Connecting...</p>
+              <p className="mt-2 text-xs text-muted">
+                Connecting...
+              </p>
             )}
 
             {error != null && (
@@ -126,26 +127,33 @@ export function WalletButton() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => (isOpen ? close() : open())}
-        className="flex cursor-pointer items-center gap-2 rounded-lg border border-border-low bg-card px-3 py-2 text-xs font-medium transition hover:bg-cream"
+        className="flex cursor-pointer items-center gap-2 rounded-lg border border-border-low bg-card px-6 py-3 text-sm font-semibold transition hover:bg-cream"
       >
         <span className="h-2 w-2 rounded-full bg-green-500" />
-        <span className="font-mono">{ellipsify(walletAddress!, 4)}</span>
+        <span className="font-mono">
+          {ellipsify(walletAddress!, 4)}
+        </span>
       </button>
 
       {isOpen && (
         <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-xl border border-border-low bg-card p-4 shadow-lg">
           <div className="mb-3">
             <p className="text-xs text-muted">Balance</p>
+
             <p className="text-lg font-bold tabular-nums">
               {balance.lamports != null
                 ? lamportsToSolString(balance.lamports)
                 : "—"}{" "}
-              <span className="text-sm font-normal text-muted">SOL</span>
+              <span className="text-sm font-normal text-muted">
+                SOL
+              </span>
             </p>
           </div>
 
           <div className="mb-3 rounded-lg border border-border-low bg-cream/50 px-3 py-2">
-            <p className="break-all font-mono text-xs">{walletAddress}</p>
+            <p className="break-all font-mono text-xs">
+              {walletAddress}
+            </p>
           </div>
 
           <div className="flex gap-2">

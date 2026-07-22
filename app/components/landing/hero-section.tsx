@@ -1,6 +1,12 @@
 import { WalletButton } from "../wallet-button";
 
 export function HeroSection() {
+  const handleOrderNow = () => {
+    document
+      .getElementById("best-seller")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="py-16 text-center">
       <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">
@@ -19,7 +25,10 @@ export function HeroSection() {
       <div className="mt-8 flex justify-center gap-4">
         <WalletButton />
 
-        <button className="rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:opacity-90">
+        <button
+          onClick={handleOrderNow}
+          className="rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+        >
           Order Now
         </button>
       </div>

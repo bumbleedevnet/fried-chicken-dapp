@@ -8,18 +8,28 @@ type FeaturedMenuProps = {
 const menus = [
   {
     id: 1,
-    name: "Ayam Original",
-    price: 25000,
+    name: "Paket Puas Ayam Kremes",
+    price: 35000,
   },
   {
     id: 2,
-    name: "Ayam Geprek",
-    price: 28000,
+    name: "Paket Kenyang Ayam Kremes",
+    price: 30000,
   },
   {
     id: 3,
-    name: "Ayam BBQ",
-    price: 30000,
+    name: "Paket Puas Ayam Rempah",
+    price: 32000,
+  },
+  {
+    id: 4,
+    name: "Paket Kenyang Ayam Rempah",
+    price: 28000,
+  },
+  {
+    id: 5,
+    name: "Air Mineral",
+    price: 5000,
   },
 ];
 
@@ -27,7 +37,10 @@ export function FeaturedMenu({
   addToCart,
 }: FeaturedMenuProps) {
   return (
-    <section className="mt-20">
+    <section
+      id="best-seller"
+      className="mt-20"
+    >
       <div className="text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">
           Featured Menu
